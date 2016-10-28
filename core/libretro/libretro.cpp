@@ -581,19 +581,13 @@ bool retro_load_game(const struct retro_game_info *game)
       { 0 },
    };
 
-
-   extract_directory(game_dir, game->path, sizeof(game_dir));
-
    environ_cb(RETRO_ENVIRONMENT_SET_INPUT_DESCRIPTORS, desc);
 
    if (environ_cb(RETRO_ENVIRONMENT_GET_RUMBLE_INTERFACE, &rumble) && log_cb)
         log_cb(RETRO_LOG_INFO, "Rumble interface supported!\n");
 
-   if (!(environ_cb(RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY, &dir) && dir))
-      dir = game_dir;
-
-   snprintf(game_dir, sizeof(game_dir), "%s%cdc%c", dir, slash, slash);
-   snprintf(game_dir_no_slash, sizeof(game_dir_no_slash), "%s%cdc", dir, slash);
+   snprintf(game_dir, sizeof(game_dir), "retro://game/dc/");
+   snprintf(game_dir_no_slash, sizeof(game_dir_no_slash), "retro://game/dc");
 
    settings.dreamcast.cable = 3;
    update_variables(true);
