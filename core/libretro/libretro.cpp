@@ -204,6 +204,8 @@ void retro_init(void)
    // Set color mode
    unsigned color_mode = RETRO_PIXEL_FORMAT_XRGB8888;
    environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &color_mode);
+
+   dc_init(co_argc,co_argv);
 }
 
 void dc_term(void);
@@ -427,7 +429,6 @@ void retro_run (void)
 
    if (first_run)
    {
-      dc_init(co_argc,co_argv);
       dc_run();
       first_run = false;
       return;
